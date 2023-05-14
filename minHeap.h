@@ -1,6 +1,9 @@
 #ifndef MINHEAP_ASSIGNMENT3_DS_MINHEAP_H
 #define MINHEAP_ASSIGNMENT3_DS_MINHEAP_H
-#include<bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <fstream>
 #include "Student.h"
 using namespace std;
 
@@ -73,5 +76,22 @@ public:
     }
 
 };
+//Function to add a student to a min heap
+void addStudent(Student student, minHeap &minheap){
+    minheap.insert(student);
+    cout<<"The student is added"<<endl;
+}
+//Print all students in the file sorted in ascending order
+void printAll(minHeap& minheap) {
+    for(int i=0;i<minheap.getSize();i++) {
+        Student student=minheap.getMin();
+        cout << "ID: " << student.ID << endl;
+        cout << "Name: " << student.name << endl;
+        cout << "GPA: " << student.GPA << endl;
+        cout << "Department: " << student.department << endl;
+        cout << endl;
+        minheap.removeMin();
+    }
+}
 
 #endif //MINHEAP_ASSIGNMENT3_DS_MINHEAP_H
