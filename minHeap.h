@@ -1,17 +1,8 @@
 #ifndef MINHEAP_ASSIGNMENT3_DS_MINHEAP_H
 #define MINHEAP_ASSIGNMENT3_DS_MINHEAP_H
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <fstream>
+#include<bits/stdc++.h>
+#include "Student.h"
 using namespace std;
-
-struct Student{
-    string name;
-    int ID;
-    float GPA;
-    string department;
-};
 
 class minHeap{
 private:

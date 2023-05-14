@@ -1,8 +1,7 @@
 #ifndef MINHEAP_ASSIGNMENT3_DS_MAXHEAP_H
 #define MINHEAP_ASSIGNMENT3_DS_MAXHEAP_H
-#include <iostream>
-#include<vector>
-#include<algorithm>
+#include<bits/stdc++.h>
+#include "Student.h"
 using namespace std;
 class maxHeap{
 private:
