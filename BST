@@ -1,0 +1,116 @@
+#include <iostream>
+#include "Student.h"
+using namespace std;
+
+struct BSTNode {
+    Student data;
+    BSTNode *left;
+    BSTNode *right;
+
+};
+BSTNode* CreateNode(Student data)
+{
+    BSTNode *newnode = new BSTNode;
+    newnode->data = data;
+    newnode->left = nullptr;
+    newnode->right = nullptr;
+
+    return newnode;
+}
+
+
+class BST {
+private:
+    BSTNode *rootPtr;
+public:
+    BSTNode *getRoot() const {
+        return rootPtr;
+    }
+
+
+    bool isEmpty() {
+        if (rootPtr == nullptr)
+            return true;
+        else return false;
+    }
+
+    BSTNode* insert(BSTNode *root, Student s) {
+
+        if(root == nullptr){
+            root = CreateNode(s);
+            return root;
+        }else if(s.ID<root->data.ID){
+            root->left = insert(root->left,s);
+        }else{
+            root->right= insert(root->left,s);
+        }
+
+    }
+
+    void search(BSTNode* root, int id) {
+
+        if(root == nullptr){
+            cout<<"not found";
+        }else if(root->data.ID == id){
+            cout<<"found";
+        }else if(id <= root->data.ID){
+            return search(root->left,id);
+        }else{
+            return search(root->right,id);
+        }
+
+    }
+    BSTNode* min(BSTNode* node) {
+        while (node->left != nullptr) {
+            node = node->left;
+        }
+        return node;
+    }
+
+    BSTNode *remove(BSTNode *root, int id) {
+
+
+            if (root == nullptr) {
+                return nullptr;
+                cout<<"Student Successfully removed";
+            }
+            if (id < root->data.ID) {
+                root->left = remove(root->left, id);
+            }
+            else if (id > root->data.ID) {
+                root->right = remove(root->right, id);
+            }
+            else {
+                if (root->left == nullptr) {
+                    BSTNode* temp = root->right;
+                    delete root;
+                    return temp;
+                }
+                else if (root->right == nullptr) {
+                    BSTNode* temp = root->left;
+                    delete root;
+                    return temp;
+                }
+                BSTNode* temp = min(root->right);
+                root->data.ID = temp->data.ID;
+                root->right = remove(root->right, temp->data.ID);
+            }
+            return root;
+    }
+
+    void print(BST bst) {
+        BSTNode* current = bst.getRoot();
+        stack<BSTNode*> s;
+        while (current != nullptr || !s.empty()) {
+            while (current != nullptr) {
+                s.push(current);
+                current = current->left;
+            }
+            current = s.top();
+            s.pop();
+            cout << "[ " << current->data.ID << ", " << current->data.name << ", " << current->data.GPA << ", " << current->data.department<<" ]" << endl;
+            current = current->right;
+        }
+
+    }
+};
