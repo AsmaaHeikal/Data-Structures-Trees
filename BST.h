@@ -114,15 +114,14 @@ public:
             else if (current->data.department == "IT")
                 it++;
 
-            cout << "[ " << current->data.ID << ", " << current->data.name << ", " << current->data.GPA << ", "
-                 << current->data.department << " ]" << endl;
+            cout << "[" << current->data.ID << ", " << current->data.name << ", " << current->data.GPA << ", "
+                 << current->data.department << "]" << endl;
             current = current->right;
 
         }
         cout << endl << "Students per department:" << endl;
         cout << "CS " << cs << " Students\nIT " << it << " Students\nDS " << ds << " Students\nIS " << is
-             << " Students\nAI " << ai
-             << " Students" << endl;
+             << " Students\nAI " << ai << " Students" << endl;
 
     }
 
@@ -182,9 +181,8 @@ void searchStudent(BST &b) {
     cin >> id;
     BSTNode *student = b.search(b.getRoot(), id); // Search for the node with ID 2
     if (student != nullptr) {
-        cout << "Found student\n" << "[ " << student->data.ID << ", " << student->data.name << ", "
-             << student->data.GPA
-             << ", " << student->data.department << " ]" << endl;
+        cout << "Found student\n" << "[" << student->data.ID << ", " << student->data.name << ", "
+             << student->data.GPA << ", " << student->data.department << "]" << endl;
     } else {
         cout << "Student not found." << endl;
     }
@@ -192,14 +190,13 @@ void searchStudent(BST &b) {
 
 void removeStudent(BST &b) {
     string id;
-    cout << "id: ";
+    cout << "id:";
     cin >> id;
     auto student = b.search(b.getRoot(), id);
 
     if (student != nullptr) {
-        cout << "Found student\n" << "[ " << student->data.ID << ", " << student->data.name << ", "
-             << student->data.GPA
-             << ", " << student->data.department << " ]" << endl;
+        cout << "Found student\n" << "[" << student->data.ID << ", " << student->data.name << ", "
+             << student->data.GPA << ", " << student->data.department << "]" << endl;
         b.remove(b.getRoot(), id);
     } else {
         cout << "Student not found." << endl;
