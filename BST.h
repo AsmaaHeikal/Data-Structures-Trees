@@ -38,7 +38,7 @@ public:
             if (root == nullptr) {
                 root = node;
             }
-        } else if (s.ID < node->data.ID) {
+        } else if (stoi(s.ID) < stoi(node->data.ID)) {
             node->left = insert(node->left, s);
         } else {
             node->right = insert(node->right, s);
