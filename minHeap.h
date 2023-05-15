@@ -76,7 +76,7 @@ public:
     Student getMin(){
         if(isEmpty()) {
             cout << "This heap is empty";
-            return Student();
+//            return Student();
         }
         return minHeapv[0];
     }
@@ -92,7 +92,8 @@ public:
 
 };
     //Function to add a student to a min heap
-    void addStudent(Student student, minHeap &minheap){
+    void minAddStudent(minHeap& minheap){
+        Student student;
         cout << "Please enter your name: " << endl;
         cin >> student.name;
         cout << "Please enter your ID: " << endl;
