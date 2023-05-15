@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
-#include "Student.h"
 #include "minHeap.h"
 #include "maxHeap.h"
+#include<bits/stdc++.h>
+#include "Student.h"
 #include "AVL.h"
 
 using namespace std;
@@ -19,7 +19,7 @@ int main(){
               "4. Max Heap\n"
               "5. Exit Program"<<endl;
         cin>>choice;
-            //BST Menu
+        //BST Menu
         if(choice==1) {
             cout << "Choose one of the following options:\n"
                     "1. Add student \n"
@@ -28,7 +28,7 @@ int main(){
                     "4. Print All (sorted by id)\n"
                     "5. Return to main menu" << endl;
         }
-            //AVL Menu
+        //AVL Menu
         if(choice==2) {
             cout << "Choose one of the following options:\n"
                     "1. Add student \n"
@@ -62,53 +62,61 @@ int main(){
                 cin >> choice2;
             }
         }
+        //Minheap menu
         if(choice==3) {
+            Student student;
+            minHeap minheap;
+            vector<Student> te;
+            loadFromFileIntoTree(minheap);
             int minHeapChoice;
             cout << "Choose one of the following options:\n"
                     "1. Add student\n"
-                    "2. Print All (sorted by gpa)" << endl;
+                    "2. Print All (sorted by gpa)\n"
+                    "3. Return to the main menu"<<endl;
+
             cin >> minHeapChoice;
-            if (minHeapChoice == 1) {
-                Student student;
-                minHeap minheap;
-                cout << "Please enter your name: " << endl;
-                cin >> student.name;
-                cout << "Please enter your ID: " << endl;
-                cin >> student.ID;
-                cout << "Please enter your GPA: " << endl;
-                cin >> student.GPA;
-                cout << "Please enter your department: " << endl;
-                cin >> student.department;
-                addStudent(student, minheap);
-            } else if (minHeapChoice == 2) {
-                minHeap minheap;
-                printAll(minheap);
-            } else
-                cout << "Invalid input";
+            while(true){
+                if (minHeapChoice == 1) {
+                    addStudent(minheap);
+                } else if (minHeapChoice == 2) {
+                    printAll(minheap);
+                } else if(minHeapChoice==3) {
+                    break;
+                }
+                cout << "Choose one of the following options:\n"
+                         "1. Add student\n"
+                         "2. Print All (sorted by gpa)\n"
+                         "3. Return to the main menu"<<endl;
+
+                cin >> minHeapChoice;
+            }
+
         }
+        //Maxheap choice
         if(choice==4) {
             int maxHeapChoice;
             maxHeap maxheap;
+            Student student;
             cout << "Choose one of the following options:\n"
                     "1. Add student\n"
-                    "2. Print All (sorted by gpa)" << endl;
+                    "2. Print All (sorted by gpa)\n"
+                    "3. Return to the main menu"<<endl;
             cin >> maxHeapChoice;
-            if (maxHeapChoice == 1) {
-                Student student;
-                cout << "Please enter your name: " << endl;
-                cin >> student.name;
-                cout << "Please enter your ID: " << endl;
-                cin >> student.ID;
-                cout << "Please enter your GPA: " << endl;
-                cin >> student.GPA;
-                cout << "Please enter your department: " << endl;
-                cin >> student.department;
-//                    addStudent(student, maxheap);
+            while(true){
+                if (maxHeapChoice == 1) {
+                    addStudent(maxheap);
+                } else if (maxHeapChoice == 2) {
+                    printAll(maxheap);
+                } else if(maxHeapChoice == 3) {
+                    break;
+                }cout << "Choose one of the following options:\n"
+                         "1. Add student\n"
+                         "2. Print All (sorted by gpa)\n"
+                         "3. Return to the main menu"<<endl;
+                cin >> maxHeapChoice;
+
             }
-            if (maxHeapChoice == 2) {
-//                    printAll(maxheap);
-            }
-        }
+                    }
         if(choice==5){
             break;
         }
