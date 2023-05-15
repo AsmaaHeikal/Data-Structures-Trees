@@ -122,27 +122,3 @@ private:
         return node;
     }
 };
-
-int main() {
-    BST b;
-    Student stud1("Alice", 1, 3.5, "CS");
-    Student stud2("Bob", 2, 3.2, "Math");
-    Student stud3("Charlie", 3, 3.9, "Physics");
-
-    b.insert(b.getRoot(), stud1);
-    b.insert(b.getRoot(), stud2);
-    b.insert(b.getRoot(), stud3);
-    b.print();
-    b.remove(b.getRoot(), 4);
-
-
-    BSTNode *result = b.search(b.getRoot(), 2); // Search for the node with ID 2
-    if (result != nullptr) {
-        cout << "Found student\n" << "[ " << result->data.ID << ", " << result->data.name << ", " << result->data.GPA
-             << ", " << result->data.department << " ]" << endl;
-    } else {
-        cout << "Student not found." << endl;
-    }
-
-    return 0;
-}
