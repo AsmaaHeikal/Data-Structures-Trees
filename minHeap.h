@@ -16,8 +16,7 @@ public:
             heapify(i);
     }
 
-    minHeap() {
-    }
+    minHeap() {}
 
 
     int parent(int index){
@@ -29,11 +28,11 @@ public:
         int rightChild=2*index+2;
         int smallest=index;
         //if the left child is smaller than the assumed smaller number then we make the new "smallest" value the left child
-        if(minHeapv[leftChild].GPA<minHeapv[smallest].GPA) {
+        if(leftChild<minHeapv.size() && minHeapv[leftChild].GPA<minHeapv[smallest].GPA) {
             smallest = leftChild;
         }
         //if the right child is smaller than the assumed smaller number then we make the new "smallest" value the right child
-        if(minHeapv[rightChild].GPA<minHeapv[smallest].GPA) {
+        if( rightChild < minHeapv.size() && minHeapv[rightChild].GPA<minHeapv[smallest].GPA) {
             smallest = rightChild;
         }
         //We loop until the variable smallest no longer carries the index value and when it doesn't we swap them
@@ -54,14 +53,6 @@ public:
 
     }
 
-    void copyVector(vector<Student> &vec)
-    {
-//        size = vec.size();
-//        minHeapv.resize(size);
-        minHeapv = vec;
-        cout << "Students Added successfully " << endl;
-    }
-
     int getSize(){
         return minHeapv.size();
     }
@@ -76,28 +67,38 @@ public:
     Student getMin(){
         if(isEmpty()) {
             cout << "This heap is empty";
-//            return Student();
         }
         return minHeapv[0];
     }
 
     void removeMin(){
         if (!isEmpty()) {
-            minHeapv[0] = minHeapv[getSize() - 1];
+            minHeapv[0] = minHeapv[minHeapv.size() - 1];
             minHeapv.pop_back();
             heapify(0);
         }
     }
 
+    //Print all students in the file sorted in ascending order
+    void printAll() {
+        vector<Student> v;
+        v = minHeapv;
+        while(minHeapv.size()>0){
+            Student student=getMin();
+            student.printStudent();
+            removeMin();
+        }
+        minHeapv=v;
+    }
 
 };
     //Function to add a student to a min heap
     void minAddStudent(minHeap& minheap){
         Student student;
-        cout << "Please enter your name: " << endl;
-        cin >> student.name;
         cout << "Please enter your ID: " << endl;
         cin >> student.ID;
+        cout << "Please enter your name: " << endl;
+        cin >> student.name;
         cout << "Please enter your GPA: " << endl;
         cin >> student.GPA;
         cout << "Please enter your department: " << endl;
@@ -111,9 +112,9 @@ public:
             cout << "Failed to open the file: "  << endl;
             return 0;
         }
-        int studentNum;
-        file>>studentNum;
-        file.ignore();
+        string studentNumStr;
+        getline(file, studentNumStr);
+        int studentNum = stoi(studentNumStr);
         for(int i=0;i<studentNum;i++){
             Student stud;
             getline(file,stud.ID);
@@ -121,19 +122,13 @@ public:
             getline(file,stud.GPA);
             getline(file,stud.department);
             tree.insert(stud);
-            file.ignore();
         }
         file.close();
         return studentNum;
     }
-    //Print all students in the file sorted in ascending order
-    void printAll(minHeap& minheap) {
-        while(!minheap.isEmpty()){
-            Student student=minheap.getMin();
-            student.printStudent();
-            minheap.removeMin();
-        }
+
+    void printAll(minHeap& tree){
+        tree.printAll();
     }
 
-
-    #endif //MINHEAP_ASSIGNMENT3_DS_MINHEAP_H
+#endif //MINHEAP_ASSIGNMENT3_DS_MINHEAP_H
