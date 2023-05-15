@@ -73,33 +73,22 @@ public:
 
     }
 
-    //Print all students in the file sorted in descending order
-    void printAll(maxHeap& maxheap) {
-        for(int i=0;i<maxheap.getSize();i++) {
-            Student student=maxheap.getMax();
-            cout << "ID: " << student.ID << endl;
-            cout << "Name: " << student.name << endl;
-            cout << "GPA: " << student.GPA << endl;
-            cout << "Department: " << student.department << endl;
-            cout << endl;
-            maxheap.removeMax();
-        }
-    }
-    //Function to a student to the max heap
-    void addStudent(Student student, maxHeap &maxheap){
-        cout << "Please enter your name: " << endl;
-        cin >> student.name;
-        cout << "Please enter your ID: " << endl;
-        cin >> student.ID;
-        cout << "Please enter your GPA: " << endl;
-        cin >> student.GPA;
-        cout << "Please enter your department: " << endl;
-        cin >> student.department;
-        maxheap.insert(student);
-        cout<<"The student is added"<<endl;
-    }
 
 };
+//Function to a student to the max heap
+void maxAddStudent(maxHeap& maxheap){
+    Student student;
+    cout << "Please enter your name: " << endl;
+    cin >> student.name;
+    cout << "Please enter your ID: " << endl;
+    cin >> student.ID;
+    cout << "Please enter your GPA: " << endl;
+    cin >> student.GPA;
+    cout << "Please enter your department: " << endl;
+    cin >> student.department;
+    maxheap.insert(student);
+    cout<<"The student is added"<<endl;
+}
 //Print all students in the file sorted in descending order
 void printAll(maxHeap& maxheap) {
     for(int i=0;i<maxheap.getSize();i++) {
