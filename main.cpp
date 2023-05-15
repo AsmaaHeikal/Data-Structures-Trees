@@ -77,7 +77,7 @@ int main(){
             cin >> minHeapChoice;
             while(true){
                 if (minHeapChoice == 1) {
-                    addStudent(minheap);
+                    minAddStudent(minheap);
                 } else if (minHeapChoice == 2) {
                     printAll(minheap);
                 } else if(minHeapChoice==3) {
@@ -104,7 +104,7 @@ int main(){
             cin >> maxHeapChoice;
             while(true){
                 if (maxHeapChoice == 1) {
-                    addStudent(maxheap);
+                    maxAddStudent(maxheap);
                 } else if (maxHeapChoice == 2) {
                     printAll(maxheap);
                 } else if(maxHeapChoice == 3) {
