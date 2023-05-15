@@ -1,3 +1,7 @@
+
+#ifndef DATA_STRUCTURES_BST_H
+#define DATA_STRUCTURES_BST_H
+
 #include <iostream>
 #include <stack>
 #include "Student.h"
@@ -19,6 +23,10 @@ private:
 public:
     BST() : root(nullptr) {}
 
+    void setRoot(BSTNode *root) {
+        BST::root = root;
+    }
+
     BSTNode *getRoot() const {
         return root;
     }
@@ -38,32 +46,34 @@ public:
         return node;
     }
 
-    BSTNode *search(BSTNode *node, int id) {
+    BSTNode *search(BSTNode *node, string id) {
         if (node == nullptr || node->data.ID == id) {
             return node;
-        } else if (id < node->data.ID) {
+        } else if (stoi(id) < stoi(node->data.ID)) {
             return search(node->left, id);
         } else {
             return search(node->right, id);
         }
     }
 
-    BSTNode *remove(BSTNode *node, int id) {
+    BSTNode *remove(BSTNode *node, string id) {
         if (node == nullptr) {
             cout << "Student not found" << endl;
             return nullptr;
         }
-
-        if (id < node->data.ID) {
+        if (stoi(id) < stoi(node->data.ID)) {
             node->left = remove(node->left, id);
-        } else if (id > node->data.ID) {
+
+        } else if (stoi(id) > stoi(node->data.ID)) {
             node->right = remove(node->right, id);
+
         } else {
             if (node->left == nullptr) {
                 BSTNode *temp = node->right;
                 delete node;
                 cout << "Student is deleted" << endl;
                 return temp;
+
             } else if (node->right == nullptr) {
                 BSTNode *temp = node->left;
                 delete node;
@@ -93,24 +103,26 @@ public:
             }
             current = s.top();
             s.pop();
-            if(current->data.department == "CS")
+            if (current->data.department == "CS")
                 cs++;
-            else if(current->data.department == "AI")
+            else if (current->data.department == "AI")
                 ai++;
-            else if(current->data.department == "IS")
+            else if (current->data.department == "IS")
                 is++;
-            else if(current->data.department == "DS")
+            else if (current->data.department == "DS")
                 ds++;
-            else if(current->data.department == "IT")
+            else if (current->data.department == "IT")
                 it++;
 
             cout << "[ " << current->data.ID << ", " << current->data.name << ", " << current->data.GPA << ", "
                  << current->data.department << " ]" << endl;
             current = current->right;
-            cout<<endl<<"Students per department:"<<endl;
-            cout<<"CS "<<cs<<" Students\nIT "<<it<<" Students\nDS "<<ds<<" Students\nIS "<<is<<" Students\nAI "<<ai
-            <<" Students"<<endl;
+
         }
+        cout << endl << "Students per department:" << endl;
+        cout << "CS " << cs << " Students\nIT " << it << " Students\nDS " << ds << " Students\nIS " << is
+             << " Students\nAI " << ai
+             << " Students" << endl;
 
     }
 
@@ -122,3 +134,78 @@ private:
         return node;
     }
 };
+
+int loadFromFile(BST &b) {
+    ifstream file("input.txt");
+    if (!file.is_open()) {
+        cout << "Failed to open the file: " << endl;
+        return 0;
+    }
+    int studentNum;
+    file >> studentNum;
+    file.ignore();
+    for (int i = 0; i < studentNum; i++) {
+        Student stud;
+        getline(file, stud.ID);
+        getline(file, stud.name);
+        getline(file, stud.GPA);
+        getline(file, stud.department);
+        b.setRoot(b.insert(b.getRoot(), stud));
+    }
+    file.close();
+    return studentNum;
+
+
+}
+
+void addStudent(BST &b) {
+    string id;
+    cout << "id:";
+    cin >> id;
+    string name;
+    cout << "name:";
+    cin >> name;
+    string gpa;
+    cout << "gpa:";
+    cin >> gpa;
+    string department;
+    cout << "department:";
+    cin >> department;
+    Student stud{name, id, gpa, department};
+    b.setRoot(b.insert(b.getRoot(), stud));
+
+}
+
+void searchStudent(BST &b) {
+    string id;
+    cout << "id:";
+    cin >> id;
+    BSTNode *student = b.search(b.getRoot(), id); // Search for the node with ID 2
+    if (student != nullptr) {
+        cout << "Found student\n" << "[ " << student->data.ID << ", " << student->data.name << ", "
+             << student->data.GPA
+             << ", " << student->data.department << " ]" << endl;
+    } else {
+        cout << "Student not found." << endl;
+    }
+}
+
+void removeStudent(BST &b) {
+    string id;
+    cout << "id: ";
+    cin >> id;
+    auto student = b.search(b.getRoot(), id);
+
+    if (student != nullptr) {
+        cout << "Found student\n" << "[ " << student->data.ID << ", " << student->data.name << ", "
+             << student->data.GPA
+             << ", " << student->data.department << " ]" << endl;
+        b.remove(b.getRoot(), id);
+    } else {
+        cout << "Student not found." << endl;
+    }
+
+
+}
+
+#endif //DATA_STRUCTURES_BST_H
