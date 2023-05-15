@@ -26,11 +26,11 @@ public:
         int rightChild=2*index+2;
         int largest=index;
         //if the left child is smaller than the assumed smaller number then we make the new "smallest" value the left child
-        if(leftChild<maxHeapv.size() && maxHeapv[leftChild].GPA>maxHeapv[largest].GPA) {
+        if(leftChild<maxHeapv.size() && stof(maxHeapv[leftChild].GPA)>stof(maxHeapv[largest].GPA)) {
             largest = leftChild;
         }
         //if the right child is smaller than the assumed smaller number then we make the new "smallest" value the right child
-        if( rightChild<maxHeapv.size() && maxHeapv[rightChild].GPA>maxHeapv[largest].GPA) {
+        if( rightChild<maxHeapv.size() && stof(maxHeapv[rightChild].GPA)>stof(maxHeapv[largest].GPA)) {
             largest = rightChild;
         }
         //We loop until the variable smallest no longer carries the index value and when it doesn't we swap them
@@ -44,7 +44,7 @@ public:
         maxHeapv.push_back(val);
         //The index of the new element inside the heap
         int index=maxHeapv.size()-1;
-        while(index>0 && maxHeapv[index].GPA>maxHeapv[parent(index)].GPA){
+        while(index>0 && stof(maxHeapv[index].GPA)>stof(maxHeapv[parent(index)].GPA)){
             swap(maxHeapv[index], maxHeapv[parent(index)]);
             index= parent(index);
         }

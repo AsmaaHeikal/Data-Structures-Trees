@@ -66,7 +66,7 @@ public:
         if (node == nullptr) {
             return nullptr;
         }
-        if (stoi(id) < stoi(node->data.ID)) {
+        else if (stoi(id) < stoi(node->data.ID)) {
             node->left = remove(node->left, id);
 
         } else if (stoi(id) > stoi(node->data.ID)) {
@@ -83,26 +83,32 @@ public:
                 delete node;
                 return temp;
             }
-            BSTNode *temp = min(node->right);
-            node->data = temp->data;
-            node->right = remove(node->right, temp->data.ID);
+            else {
+                BSTNode *temp = minValue(node->right);
+                node->data = temp->data;
+                node->right = remove(node->right, temp->data.ID);
+            }
         }
         return node;
     }
 
     void print(BSTNode* r){
-        if(r== nullptr)return;
+        if(r== nullptr){
+            return;
+        }
         print(r->left);
         r->data.printStudent();
         print(r->right);
     }
 
 private:
-    BSTNode *min(BSTNode *node) {
-        while (node->left != nullptr) {
-            node = node->left;
+
+    BSTNode * minValue(BSTNode * node){
+        BSTNode * curr=node;
+        while(curr ->left != nullptr){
+            curr=curr->left;
         }
-        return node;
+        return curr;
     }
 };
 
@@ -151,8 +157,10 @@ void addStudent(BST &b) {
     cout << "department:";
     cin >> department;
     Student stud{name, id, gpa, department};
-    b.setRoot(b.insert(b.getRoot(), stud));
-
+    b.root=b.insert(b.root, stud);
+    if(b.root!=nullptr){
+        cout<<"The student is added."<<endl;
+    }
 }
 
 void searchStudent(BST &b) {
@@ -177,7 +185,10 @@ void removeStudent(BST &b) {
     if (student != nullptr) {
         cout << "Found student\n" ;
         student->data.printStudent();
-        b.remove(b.getRoot(), id);
+        b.root=b.remove(b.getRoot(), id);
+        if(b.root!=nullptr){
+            cout<<"The student is removed."<<endl;
+        }
     } else {
         cout << "Student not found." << endl;
     }

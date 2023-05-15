@@ -1,8 +1,9 @@
+#include<bits/stdc++.h>
 #include "minHeap.h"
 #include "maxHeap.h"
-#include<bits/stdc++.h>
 #include "Student.h"
 #include "AVL.h"
+#include "BST.h"
 
 using namespace std;
 
@@ -10,9 +11,9 @@ using namespace std;
 int main(){
 
     //The first menu
-    int choice=0;
+    int choice = 0, choice2;
     while(true){
-        cout<<"Welcome!Choose the data structure:\n"
+        cout<<"Welcome! Choose the data structure:\n"
               "1. BST\n"
               "2. AVL\n"
               "3. Min Heap\n"
@@ -20,13 +21,41 @@ int main(){
               "5. Exit Program"<<endl;
         cin>>choice;
         //BST Menu
-        if(choice==1) {
+        if (choice == 1) {
             cout << "Choose one of the following options:\n"
                     "1. Add student \n"
                     "2. Remove student\n"
                     "3. Search student\n"
                     "4. Print All (sorted by id)\n"
                     "5. Return to main menu" << endl;
+
+            //insert choice form menu 2
+            cin >> choice2;
+            BST bst;
+            //load info from file to BST
+            loadFromFile(bst);
+
+            while (true) {
+                if (choice2 == 1) {
+                    addStudent(bst);
+                } else if (choice2 == 2) {
+                    removeStudent(bst);
+                } else if (choice2 == 3) {
+                    searchStudent(bst);
+                } else if (choice2 == 4) {
+                    printStudents(bst);
+                } else if (choice2 == 5) {
+                    break;
+                }
+                cout << "Choose one of the following options:\n"
+                        "1. Add student \n"
+                        "2. Remove student\n"
+                        "3. Search student\n"
+                        "4. Print All (sorted by id)\n"
+                        "5. Return to main menu" << endl;
+                cin >> choice2;
+            }
+
         }
         //AVL Menu
         if(choice==2) {
@@ -36,7 +65,7 @@ int main(){
                     "3. Search student\n"
                     "4. Print All (sorted by id)\n"
                     "5. Return to main menu" << endl;
-            int choice2;
+
             cin >> choice2;
 
             AVL avl;
@@ -83,9 +112,9 @@ int main(){
                     break;
                 }
                 cout << "Choose one of the following options:\n"
-                         "1. Add student\n"
-                         "2. Print All (sorted by gpa)\n"
-                         "3. Return to the main menu"<<endl;
+                        "1. Add student\n"
+                        "2. Print All (sorted by gpa)\n"
+                        "3. Return to the main menu"<<endl;
 
                 cin >> minHeapChoice;
             }
@@ -116,7 +145,7 @@ int main(){
                 cin >> maxHeapChoice;
 
             }
-                    }
+        }
         if(choice==5){
             break;
         }

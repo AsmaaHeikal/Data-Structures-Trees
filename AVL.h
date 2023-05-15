@@ -170,7 +170,9 @@ public:
     }
 
     void print(TreeNode* r){
-        if(r== nullptr)return;
+        if(r== nullptr){
+            return;
+        }
         print(r->left);
         r->data.printStudent();
         print(r->right);

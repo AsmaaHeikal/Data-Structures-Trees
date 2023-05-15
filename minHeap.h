@@ -28,11 +28,11 @@ public:
         int rightChild=2*index+2;
         int smallest=index;
         //if the left child is smaller than the assumed smaller number then we make the new "smallest" value the left child
-        if(leftChild<minHeapv.size() && minHeapv[leftChild].GPA<minHeapv[smallest].GPA) {
+        if(leftChild<minHeapv.size() && stof(minHeapv[leftChild].GPA)<stof(minHeapv[smallest].GPA)) {
             smallest = leftChild;
         }
         //if the right child is smaller than the assumed smaller number then we make the new "smallest" value the right child
-        if( rightChild < minHeapv.size() && minHeapv[rightChild].GPA<minHeapv[smallest].GPA) {
+        if( rightChild < minHeapv.size() && stof(minHeapv[rightChild].GPA)<stof(minHeapv[smallest].GPA)) {
             smallest = rightChild;
         }
         //We loop until the variable smallest no longer carries the index value and when it doesn't we swap them
@@ -46,7 +46,7 @@ public:
         minHeapv.push_back(val);
         //The index of the new element inside the heap
         int index=minHeapv.size()-1;
-        while(index>0 && minHeapv[index].GPA<minHeapv[parent(index)].GPA){
+        while(index>0 && stof(minHeapv[index].GPA)<stof(minHeapv[parent(index)].GPA)){
             swap(minHeapv[index], minHeapv[parent(index)]);
             index= parent(index);
         }
