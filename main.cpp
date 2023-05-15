@@ -3,6 +3,7 @@
 #include<bits/stdc++.h>
 #include "Student.h"
 #include "AVL.h"
+#include "BST.h"
 
 using namespace std;
 
@@ -42,7 +43,7 @@ int main(){
                 } else if (choice2 == 3) {
                     searchStudent(bst);
                 } else if (choice2 == 4) {
-                    bst.print();
+                    printStudents(bst);
                 } else if (choice2 == 5) {
                     break;
                 }
