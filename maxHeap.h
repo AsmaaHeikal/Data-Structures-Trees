@@ -11,12 +11,14 @@ private:
 public:
     maxHeap() {}
 
-    maxHeap(const vector<Student> &maxHeapv) : maxHeapv(maxHeapv) {}
+    maxHeap(const vector<Student> &maxHeapv) : maxHeapv(maxHeapv) {
+        for (int i = maxHeapv.size() / 2 - 1; i >= 0; i--)
+            heapify(i);
+    }
 
     int parent(int index){
         return (index-1)/2;
     }
-    int size=maxHeapv.size();
 
     //The heapify function takes the vector and transforms it into a minHeap
     void heapify(int index){
@@ -24,11 +26,11 @@ public:
         int rightChild=2*index+2;
         int largest=index;
         //if the left child is smaller than the assumed smaller number then we make the new "smallest" value the left child
-        if(maxHeapv[leftChild].GPA>maxHeapv[largest].GPA) {
+        if(leftChild<maxHeapv.size() && maxHeapv[leftChild].GPA>maxHeapv[largest].GPA) {
             largest = leftChild;
         }
         //if the right child is smaller than the assumed smaller number then we make the new "smallest" value the right child
-        if(maxHeapv[rightChild].GPA>maxHeapv[largest].GPA) {
+        if( rightChild<maxHeapv.size() && maxHeapv[rightChild].GPA>maxHeapv[largest].GPA) {
             largest = rightChild;
         }
         //We loop until the variable smallest no longer carries the index value and when it doesn't we swap them
@@ -67,10 +69,24 @@ public:
     }
 
     void removeMax(){
-        maxHeapv[0]=maxHeapv[getSize()-1];
-        size--;
-        heapify(0);
+        if(!isEmpty()){
+            maxHeapv[0]=maxHeapv[maxHeapv.size()-1];
+            maxHeapv.pop_back();
+            heapify(0);
 
+        }
+
+    }
+    //Print all students in the file sorted in ascending order
+    void printAll() {
+        vector<Student> v;
+        v = maxHeapv;
+        while(maxHeapv.size()>0){
+            Student student=getMax();
+            student.printStudent();
+            removeMax();
+        }
+        maxHeapv=v;
     }
 
 
@@ -89,17 +105,29 @@ void maxAddStudent(maxHeap& maxheap){
     maxheap.insert(student);
     cout<<"The student is added"<<endl;
 }
-//Print all students in the file sorted in descending order
-void printAll(maxHeap& maxheap) {
-    for(int i=0;i<maxheap.getSize();i++) {
-        Student student=maxheap.getMax();
-        cout << "ID: " << student.ID << endl;
-        cout << "Name: " << student.name << endl;
-        cout << "GPA: " << student.GPA << endl;
-        cout << "Department: " << student.department << endl;
-        cout << endl;
-        maxheap.removeMax();
+int loadFromFileIntoTree(maxHeap& tree){
+    ifstream file("input.txt");
+    if (!file.is_open()) {
+        cout << "Failed to open the file: "  << endl;
+        return 0;
     }
+    string studentNumStr;
+    getline(file, studentNumStr);
+    int studentNum = stoi(studentNumStr);
+    for(int i=0;i<studentNum;i++){
+        Student stud;
+        getline(file,stud.ID);
+        getline(file,stud.name);
+        getline(file,stud.GPA);
+        getline(file,stud.department);
+        tree.insert(stud);
+    }
+    file.close();
+    return studentNum;
+}
+
+void printAll(maxHeap& tree){
+    tree.printAll();
 }
 
 #endif //MINHEAP_ASSIGNMENT3_DS_MAXHEAP_H
